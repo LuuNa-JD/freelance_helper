@@ -1,0 +1,33 @@
+<%= simple_form_for :calculateur, url: calculer_tjm_path, method: :post,
+                    data: { controller: "calculateur", action: "ajax:success->calculateur#submitEnd", turbo: "false" } do |f| %>
+
+  <%= f.input :salaire_souhaite, label: "Salaire souhaité", required: true, input_html: { min: 0 } %>
+
+  <%= f.input :jours_travailles, label: "Nombre de jours travaillés", required: true, input_html: { min: 0 } %>
+
+  <%= f.input :pourcentage_cotisations, label: "Pourcentage de cotisations sociales", required: true, input_html: { min: 0, max: 100 } %>
+
+  <%= f.input :pourcentage_impots, label: "Pourcentage d'impôts", required: true, input_html: { min: 0, max: 100 } %>
+
+  <%= f.input :frais_pro_fixes, label: "frais professionnels", required: true, input_html: { min: 0, max: 100 } %>
+
+  <%= f.input :cotisation_chomage, label: "Cotisation chômage", required: true, input_html: { min: 0 } %>
+
+  <%= f.input :prime_mutuelle_tns, label: "Prime de mutuelle TNS", required: true, input_html: { min: 0 } %>
+
+  <%= f.input :prime_assurance_rc, label: "Prime d'assurance RC", required: true, input_html: { min: 0 } %>
+
+  <%= f.input :compensation_avantages, label: "Compensation d'avantages", required: true, input_html: { min: 0 } %>
+
+  <%= f.button :submit, "Calculer" %>
+
+<% end %>
+
+<div id="resultats-container">
+  <% if @resultats.present? %>
+    <p>TJM: <span id="tjm-result"><%= @resultats[:tjm] %></span></p>
+    <p>THM: <span id="thm-result"><%= @resultats[:thm] %></span></p>
+  <% else %>
+    <p>Aucun résultat à afficher.</p>
+  <% end %>
+</div>
